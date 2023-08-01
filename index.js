@@ -13,28 +13,51 @@ function getComputerChoice() {
 }
 
 // A function to play a round with computer and user inputs
-function playRound(user, computer) {
-  console.log(computer);
+function playRound(user, computer = getComputerChoice()) {
   let result;
 
   let userChoice = user.toLowerCase(); // To let user input without any case sensitivity
 
+  // Game calculations
   if (userChoice === computer) {
-    return "It's a tie!";
+    return -1;
   } else if (userChoice === "rock" && computer === "paper") {
-    return "Computer wins!!";
+    result = 0;
   } else if (userChoice === "rock" && computer === "scissors") {
-    return "Human wins!!";
+    result = 1;
   } else if (userChoice === "paper" && computer === "scissors") {
-    return "computer wins!!";
+    result = 0;
   } else if (userChoice === "paper" && computer === "rock") {
-    return "Human wins!!";
+    result = 1;
   } else if (userChoice === "scissors" && computer === "rock") {
-    return "Computer wins!!";
+    result = 0;
   } else if (userChoice === "scissors" && computer === "paper") {
-    return "Human wins!!";
+    result = 1;
+  }
+
+  return result;
+}
+// Function to loop a fixed number of times
+function game() {
+  let humans = 0;
+  let computer = 0;
+  for (let i = 0; i <= 2; i++) {
+    userInput = prompt("enter your choice:");
+    result = playRound(userInput);
+    if (result === 0) {
+      computer++;
+    } else if (result == 1) {
+      humans++;
+    }
+  }
+
+  // To keep up with the final score
+  console.log(`The score is Humans:${humans} - Computers ${computer}`);
+  if (humans > computer) {
+    console.log("Humans win!!!");
+  } else {
+    console.log("Computers Win :(");
   }
 }
-
-
-console.log(playRound("paper", getComputerChoice()));
+// Start the game
+game();
