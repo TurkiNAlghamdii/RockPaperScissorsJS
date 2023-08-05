@@ -12,6 +12,28 @@ function getComputerChoice() {
   return choice;
 }
 
+let container = document.querySelector("#container");
+let rock = document.createElement("button");
+rock.innerText = "Rock";
+let paper = document.createElement("button");
+paper.innerText = "paper";
+let scissors = document.createElement("button");
+scissors.innerText = "scissors";
+
+let buttons = document.querySelectorAll("button")
+
+
+
+
+container.appendChild(rock);
+container.appendChild(paper);
+container.appendChild(scissors);
+
+let humans = 0;
+let computers = 0;
+let div1 = document.createElement("div");
+
+container.appendChild(div1);
 // A function to play a round with computer and user inputs
 function playRound(user, computer = getComputerChoice()) {
   let result;
@@ -20,44 +42,49 @@ function playRound(user, computer = getComputerChoice()) {
 
   // Game calculations
   if (userChoice === computer) {
+    div1.innerText = `Humans:${humans}, computers:${computers}=> a tie`;
     return -1;
   } else if (userChoice === "rock" && computer === "paper") {
     result = 0;
+    computers++;
+    div1.innerText = `Humans:${humans}, computers:${computers}`;
   } else if (userChoice === "rock" && computer === "scissors") {
     result = 1;
+    humans++;
+    div1.innerText = `Humans:${humans}, computers:${computers}`;
   } else if (userChoice === "paper" && computer === "scissors") {
     result = 0;
+    computers++;
+    div1.innerText = `Humans:${humans}, computers:${computers}`;
   } else if (userChoice === "paper" && computer === "rock") {
     result = 1;
+    humans++;
+    div1.innerText = `Humans:${humans}, computers:${computers}`;
   } else if (userChoice === "scissors" && computer === "rock") {
     result = 0;
+    computers++;
+    div1.innerText = `Humans:${humans}, computers:${computers}`;
   } else if (userChoice === "scissors" && computer === "paper") {
     result = 1;
+    humans++;
+    div1.innerText = `Humans:${humans}, computers:${computers}`;
   }
 
-  return result;
-}
-// Function to loop a fixed number of times
-function game() {
-  let humans = 0;
-  let computer = 0;
-  for (let i = 0; i <= 2; i++) {
-    userInput = prompt("enter your choice:");
-    result = playRound(userInput);
-    if (result === 0) {
-      computer++;
-    } else if (result == 1) {
-      humans++;
-    }
+  if (humans === 5) {
+    div1.innerText = `Humans win, ${humans} - ${computers}`;
+  } else if (computers === 5) {
+    let div1 = document.createElement("div");
+    container.appendChild(div1);
+    div1.innerText = `computers win, ${computers} - ${humans}`;
   }
+}
 
-  // To keep up with the final score
-  console.log(`The score is Humans:${humans} - Computers ${computer}`);
-  if (humans > computer) {
-    console.log("Humans win!!!");
-  } else {
-    console.log("Computers Win :(");
-  }
-}
-// Start the game
-game();
+paper.addEventListener("click", function () {
+  playRound("paper");
+});
+rock.addEventListener("click", function () {
+  playRound("rock");
+});
+scissors.addEventListener("click", function () {
+  playRound("scissors");
+});
